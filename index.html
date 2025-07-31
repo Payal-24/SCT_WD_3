@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Game App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 18px;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      padding: 2rem;
+      color: #333;
+      transition: background 0.5s ease;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #2d2d2d;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    #quiz-container {
+      max-width: 700px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    }
+
+    .question {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      animation: slideFade 0.5s ease-in-out;
+    }
+
+    @keyframes slideFade {
+      from {opacity: 0; transform: translateX(30px);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+
+    .options label {
+      display: block;
+      margin: 0.5rem 0;
+      background: #f0f0f0;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .options label:hover {
+      background: #d1f7ff;
+    }
+
+    .fill-input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      display: block;
+      margin: 2rem auto 1rem;
+      padding: 0.8rem 1.5rem;
+      background: #ff7e5f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #eb5757;
+    }
+
+    #score {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎓 Interactive Quiz Game</h1>
+  <div id="quiz-container">
+    <div id="question-box"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { type: "single", question: "Which language is used for web styling?", options: ["HTML", "CSS", "JavaScript", "Python"], answer: "CSS" },
+      { type: "multi", question: "Select frontend technologies:", options: ["HTML", "React", "Node.js", "MongoDB"], answer: ["HTML", "React"] },
+      { type: "fill", question: "Fill in the blank: JavaScript is mainly used for ______ web pages.", answer: "interactive" },
+      { type: "single", question: "Who created Python?", options: ["Dennis Ritchie", "Guido van Rossum", "Linus Torvalds", "James Gosling"], answer: "Guido van Rossum" },
+      { type: "fill", question: "Fill in the blank: CSS stands for ______ Style Sheets.", answer: "Cascading" },
+      { type: "multi", question: "Select backend technologies:", options: ["React", "Express.js", "Node.js", "HTML"], answer: ["Express.js", "Node.js"] },
+      { type: "single", question: "Which tag is used to define a hyperlink?", options: ["<div>", "<a>", "<span>", "<link>"], answer: "<a>" },
+      { type: "fill", question: "Fill in the blank: HTML stands for HyperText ______ Language.", answer: "Markup" },
+      { type: "multi", question: "Select valid HTML tags:", options: ["<p>", "<head>", "<main>", "<script>"], answer: ["<p>", "<head>", "<main>", "<script>"] },
+      { type: "single", question: "Which tool is used for version control?", options: ["Git", "VS Code", "Slack", "Figma"], answer: "Git" },
+      { type: "multi", question: "Select all programming languages:", options: ["CSS", "HTML", "Java", "Python"], answer: ["Java", "Python"] },
+      { type: "fill", question: "Fill in the blank: The <br> tag is used to insert a ______.", answer: "line break" },
+      { type: "single", question: "Which language is used for database querying?", options: ["HTML", "SQL", "CSS", "Python"], answer: "SQL" },
+      { type: "multi", question: "Select cloud platforms:", options: ["AWS", "Azure", "Heroku", "GitHub"], answer: ["AWS", "Azure", "Heroku"] },
+      { type: "fill", question: "Fill in the blank: Vercel is used for ______ deployment.", answer: "frontend" },
+      { type: "single", question: "Which is a JavaScript framework?", options: ["Django", "React", "Laravel", "Flask"], answer: "React" },
+      { type: "multi", question: "Select correct programming loops:", options: ["for", "while", "next", "loop"], answer: ["for", "while"] },
+      { type: "fill", question: "Fill in the blank: A variable in JavaScript is declared using ______.", answer: "let" },
+      { type: "single", question: "Which language is not object-oriented?", options: ["Java", "Python", "C", "C++"], answer: "C" },
+      { type: "multi", question: "Select mobile development frameworks:", options: ["Flutter", "React Native", "Xamarin", "Vue"], answer: ["Flutter", "React Native", "Xamarin"] }
+    ];
+
+    let index = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = questions[index];
+      const box = document.getElementById("question-box");
+      box.style.opacity = 0;
+
+      setTimeout(() => {
+        box.innerHTML = `<p class="question">${q.question}</p>`;
+
+        if (q.type === "single") {
+          box.innerHTML += `<div class="options">${q.options.map(opt => `
+            <label><input type="radio" name="answer" value="${opt}"> ${opt}</label>`).join("")}</div>`;
+        } else if (q.type === "multi") {
+          box.innerHTML += `<div class="options">${q.options.map(opt => `
+            <label><input type="checkbox" name="answer" value="${opt}"> ${opt}</label>`).join("")}</div>`;
+        } else if (q.type === "fill") {
+          box.innerHTML += `<input type="text" class="fill-input" id="fill-answer" placeholder="Your answer...">`;
+        }
+
+        box.style.opacity = 1;
+      }, 300);
+    }
+
+    function nextQuestion() {
+      const q = questions[index];
+      let userAnswer;
+
+      if (q.type === "single") {
+        const selected = document.querySelector('input[name="answer"]:checked');
+        if (selected && selected.value === q.answer) score++;
+      } else if (q.type === "multi") {
+        const selected = [...document.querySelectorAll('input[name="answer"]:checked')].map(i => i.value);
+        if (selected.sort().toString() === q.answer.sort().toString()) score++;
+      } else if (q.type === "fill") {
+        userAnswer = document.getElementById("fill-answer").value.trim().toLowerCase();
+        if (userAnswer === q.answer.toLowerCase()) score++;
+      }
+
+      index++;
+      if (index < questions.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quiz-container").innerHTML = `
+          <h2>✅ Quiz Completed!</h2>
+          <p id="score">Your Score: ${score} / ${questions.length}</p>`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
