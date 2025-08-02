@@ -1,182 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Quiz Game App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      font-size: 18px;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
-      padding: 2rem;
-      color: #333;
-      transition: background 0.5s ease;
+        background-color: black;
+        font-family: Arial, sans-serif;
     }
 
     h1 {
-      text-align: center;
-      font-size: 2rem;
-      color: #2d2d2d;
-      animation: fadeIn 1s ease-in-out;
+        color: #333;
+        text-align: center;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
+    h2 {
+        color: #007bff;
+        text-align: center;
     }
 
-    #quiz-container {
-      max-width: 700px;
-      margin: auto;
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    p {
+        color: #28a745;
+        text-align: center;
     }
 
-    .question {
-      font-weight: bold;
-      margin-bottom: 1rem;
-      animation: slideFade 0.5s ease-in-out;
+    form {
+        margin: 0 auto;
+        width: 50%;
+        padding: 20px;
+        border-radius: 10px;
+        background-color:rgb(157, 9, 157);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    @keyframes slideFade {
-      from {opacity: 0; transform: translateX(30px);}
-      to {opacity: 1; transform: translateX(0);}
-    }
+    label {
+        display: block;
+       text-align: center;
+       color:white;
+       font-size:20px;
 
-    .options label {
-      display: block;
-      margin: 0.5rem 0;
-      background: #f0f0f0;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-      cursor: pointer;
-    }
 
-    .options label:hover {
-      background: #d1f7ff;
     }
+    input[type="radio"] {
+        text-align: center;
+    }
+    input{
+        text-align: center;
+        
+    }
+    .rainbow-text{
+       font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  background-image: linear-gradient(
+    90deg,
+    rgb(135, 71, 161),
+    rgb(180, 97, 168),
+    rgb(154, 51, 165),
+    rgb(83, 36, 91),
+    rgb(211, 41, 211),
+    rgb(80, 5, 57),
+    rgb(147, 32, 147),
+    rgb(112, 15, 131)
+  );
+  background-size: 400%;
+  -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: rainbow 5s linear infinite;
+    }
+    .rainbow-text2{
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        background-image: linear-gradient(
+            90deg,
+            rgb(161, 71, 71),
+            rgb(180, 97, 168),
+            rgb(154, 51, 165), 
 
-    .fill-input {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
+            rgb(83, 36, 91),
+            rgb(211, 41, 211),      
+            rgb(80, 5, 57),
+            rgb(147, 32, 147),
+            rgb(112, 15, 131)
+            );
+            background-size: 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: rainbow 5s linear infinite;
     }
+    .container {
+  position: relative;
+  width: 50%;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: transparent; /* no background fill */
+  z-index: 1;
+}
 
-    button {
-      display: block;
-      margin: 2rem auto 1rem;
-      padding: 0.8rem 1.5rem;
-      background: #ff7e5f;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+.container::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    rgb(168, 23, 168),
+    rgb(143, 14, 100),
+    rgb(74, 32, 129),
+    rgb(128, 0, 100),
+    rgb(166, 0, 255),
+    rgb(154, 11, 104),
+    violet,
+    red
+  );
+  background-size: 400% 400%;
+  border-radius: 12px;
+  z-index: -1;
+  animation: borderMove 6s linear infinite;
+}
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
-    button:hover {
-      background: #eb5757;
-    }
 
-    #score {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-      font-weight: bold;
-    }
-  </style>
-</head>
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff00ff;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #cc00cc;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #cc00cc;
+}
+
+</style>
 <body>
-  <h1>🎓 Interactive Quiz Game</h1>
-  <div id="quiz-container">
-    <div id="question-box"></div>
-    <button onclick="nextQuestion()">Next</button>
-    <div id="score"></div>
-  </div>
+<h1 class="rainbow-text">Quiz Application </h1>
+<h2 class="rainbow-text2">Welcome to the Quiz Application</h2>
+<p style="font-size: 20px; color: white; text-align:center;">Test your knowledge with our quiz!</p>
+<form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 1" style="font-size: 25px; color:white;">Question 1: What is the capital of France?</label><br>
+<label style="color: white;"><input type="radio" name="question1" value="a"> A) Berlin</label><br>
+<label style="color: white;"><input type="radio" name="question1" value="b"> B) Madrid</label><br>
+<label style="color: white;"><input type="radio" name="question1" value="c"> C) Paris</label><br>
+<label style="color: white;"><input type="radio" name="question1" value="d"> D) Rome</label><br>
+        </form>
 
-  <script>
-    const questions = [
-      { type: "single", question: "Which language is used for web styling?", options: ["HTML", "CSS", "JavaScript", "Python"], answer: "CSS" },
-      { type: "multi", question: "Select frontend technologies:", options: ["HTML", "React", "Node.js", "MongoDB"], answer: ["HTML", "React"] },
-      { type: "fill", question: "Fill in the blank: JavaScript is mainly used for ______ web pages.", answer: "interactive" },
-      { type: "single", question: "Who created Python?", options: ["Dennis Ritchie", "Guido van Rossum", "Linus Torvalds", "James Gosling"], answer: "Guido van Rossum" },
-      { type: "fill", question: "Fill in the blank: CSS stands for ______ Style Sheets.", answer: "Cascading" },
-      { type: "multi", question: "Select backend technologies:", options: ["React", "Express.js", "Node.js", "HTML"], answer: ["Express.js", "Node.js"] },
-      { type: "single", question: "Which tag is used to define a hyperlink?", options: ["<div>", "<a>", "<span>", "<link>"], answer: "<a>" },
-      { type: "fill", question: "Fill in the blank: HTML stands for HyperText ______ Language.", answer: "Markup" },
-      { type: "multi", question: "Select valid HTML tags:", options: ["<p>", "<head>", "<main>", "<script>"], answer: ["<p>", "<head>", "<main>", "<script>"] },
-      { type: "single", question: "Which tool is used for version control?", options: ["Git", "VS Code", "Slack", "Figma"], answer: "Git" },
-      { type: "multi", question: "Select all programming languages:", options: ["CSS", "HTML", "Java", "Python"], answer: ["Java", "Python"] },
-      { type: "fill", question: "Fill in the blank: The <br> tag is used to insert a ______.", answer: "line break" },
-      { type: "single", question: "Which language is used for database querying?", options: ["HTML", "SQL", "CSS", "Python"], answer: "SQL" },
-      { type: "multi", question: "Select cloud platforms:", options: ["AWS", "Azure", "Heroku", "GitHub"], answer: ["AWS", "Azure", "Heroku"] },
-      { type: "fill", question: "Fill in the blank: Vercel is used for ______ deployment.", answer: "frontend" },
-      { type: "single", question: "Which is a JavaScript framework?", options: ["Django", "React", "Laravel", "Flask"], answer: "React" },
-      { type: "multi", question: "Select correct programming loops:", options: ["for", "while", "next", "loop"], answer: ["for", "while"] },
-      { type: "fill", question: "Fill in the blank: A variable in JavaScript is declared using ______.", answer: "let" },
-      { type: "single", question: "Which language is not object-oriented?", options: ["Java", "Python", "C", "C++"], answer: "C" },
-      { type: "multi", question: "Select mobile development frameworks:", options: ["Flutter", "React Native", "Xamarin", "Vue"], answer: ["Flutter", "React Native", "Xamarin"] }
-    ];
 
-    let index = 0;
-    let score = 0;
+<form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 2" style="font-size: 25px; color:white;">Question 2: What is the capital of Japan?</label><br>
+<label style="color: white;"><input type="radio" name="question2" value="a"> A) Beijing</label><br>
+<label style="color: white;"><input type="radio" name="question2" value="b"> B) Seoul</label><br>
+<label style="color: white;"><input type="radio" name="question2" value="c"> C) Tokyo</label><br>
+<label style="color: white;"><input type="radio" name="question2" value="d"> D) Banqkok</label><br>
+ </form>
 
-    function loadQuestion() {
-      const q = questions[index];
-      const box = document.getElementById("question-box");
-      box.style.opacity = 0;
 
-      setTimeout(() => {
-        box.innerHTML = `<p class="question">${q.question}</p>`;
+ <form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 3" style="font-size: 25px; color:white;">Question 3: Which planet is known as the Red Planet?</label><br>
+<label style="color: white;"><input type="radio" name="question3" value="a"> A) Earth</label><br>
+<label style="color: white;"><input type="radio" name="question3" value="b"> B) Mars</label><br>
+<label style="color: white;"><input type="radio" name="question3" value="c"> C) Jupiter</label><br>
+<label style="color: white;"><input type="radio" name="question3" value="d"> D) Venus</label><br>
+ </form>
 
-        if (q.type === "single") {
-          box.innerHTML += `<div class="options">${q.options.map(opt => `
-            <label><input type="radio" name="answer" value="${opt}"> ${opt}</label>`).join("")}</div>`;
-        } else if (q.type === "multi") {
-          box.innerHTML += `<div class="options">${q.options.map(opt => `
-            <label><input type="checkbox" name="answer" value="${opt}"> ${opt}</label>`).join("")}</div>`;
-        } else if (q.type === "fill") {
-          box.innerHTML += `<input type="text" class="fill-input" id="fill-answer" placeholder="Your answer...">`;
+
+ 
+ <form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 4" style="font-size: 25px; color:white;">Question 4: What is the square root of 64?</label><br>
+<label style="color: white;"><input type="radio" name="question4" value="a"> A) 6</label><br>
+<label style="color: white;"><input type="radio" name="question4" value="b"> B) 7</label><br>
+<label style="color: white;"><input type="radio" name="question4" value="c"> C) 8</label><br>
+<label style="color: white;"><input type="radio" name="question4" value="d"> D) 9</label><br>
+ </form>
+
+
+
+ 
+ <form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 3" style="font-size: 25px; color:white;">Question 5: Who wrote the play 'Romeo and Juliet'?
+</label><br>
+<label style="color: white;"><input type="radio" name="question5" value="a"> A) William Shakespeare</label><br>
+<label style="color: white;"><input type="radio" name="question5" value="b"> B) Charles Dickens</label><br>
+<label style="color: white;"><input type="radio" name="question5" value="c"> C) Mark Twain</label><br>
+<label style="color: white;"><input type="radio" name="question5" value="d"> D) Jane Austen</label><br>
+ </form>
+
+
+
+
+<form class="container" style="text-align: center; margin-top: 20px;">
+<label for="question 3" style="font-size: 25px; color:white;">Question 6: What is the chemical symbol for water?
+</label><br>
+<label style="color: white;"><input type="radio" name="question6" value="a"> A) O</label><br>
+<label style="color: white;"><input type="radio" name="question6" value="b"> B) H2O</label><br>
+<label style="color: white;"><input type="radio" name="question6" value="c"> C) CO2</label><br>
+<label style="color: white;"><input type="radio" name="question6" value="d"> D) NaCL</label><br>
+ </form>
+<div style="text-align: center; margin-top: 20px;">
+    <h2 style="color: white;">Thank you for participating!</h2>
+    <p style="color: white;">Click the button below to submit your answers.</p>
+ <button onclick="submit()">SUBMIT</button>
+ <p id="result" style="text-align: center; font-size:20px;color:white;"></p>
+</div>
+
+
+
+<script>
+    function submit(){
+        var question1 = document.querySelector('input[name="question1"]:checked').value;
+        var question2 = document.querySelector('input[name="question2"]:checked').value;
+        var question3 = document.querySelector('input[name="question3"]:checked').value;
+        var question4 = document.querySelector('input[name="question4"]:checked').value;
+        var question5 = document.querySelector('input[name="question5"]:checked').value;
+        var question6 = document.querySelector('input[name="question6"]:checked').value;
+        var score = 0;
+        if(question1 == "c"){
+            score++;
+        }
+        if(question2 == "c"){
+            score++;
+        }
+        if(question3 == "b"){
+            score++;
+        }
+        if(question4 == "c"){
+            score++;
+        }
+        if(question5 == "a"){
+            score++;
+        }
+        if(question6 == "b"){
+            score++;
+        }
+        alert("Your score is: " + score + "/6");
+        console.log("Question 1: " + question1);
+        console.log("Question 2: " + question2);
+        console.log("Question 3: " + question3);
+        console.log("Question 4: " + question4);
+        console.log("Question 5: " + question5);
+        console.log("Question 6: " + question6);
+        console.log("Total Score: " + score + "/6");
+        document.getElementById("result").innerText = "Your score is: " + score + "/6";
         }
 
-        box.style.opacity = 1;
-      }, 300);
-    }
 
-    function nextQuestion() {
-      const q = questions[index];
-      let userAnswer;
-
-      if (q.type === "single") {
-        const selected = document.querySelector('input[name="answer"]:checked');
-        if (selected && selected.value === q.answer) score++;
-      } else if (q.type === "multi") {
-        const selected = [...document.querySelectorAll('input[name="answer"]:checked')].map(i => i.value);
-        if (selected.sort().toString() === q.answer.sort().toString()) score++;
-      } else if (q.type === "fill") {
-        userAnswer = document.getElementById("fill-answer").value.trim().toLowerCase();
-        if (userAnswer === q.answer.toLowerCase()) score++;
-      }
-
-      index++;
-      if (index < questions.length) {
-        loadQuestion();
-      } else {
-        document.getElementById("quiz-container").innerHTML = `
-          <h2>✅ Quiz Completed!</h2>
-          <p id="score">Your Score: ${score} / ${questions.length}</p>`;
-      }
-    }
-
-    loadQuestion();
-  </script>
+</script>
 </body>
 </html>
